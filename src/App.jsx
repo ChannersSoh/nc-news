@@ -1,16 +1,15 @@
 import { useState } from 'react';
+import Articles from './components/Articles'
 import React from 'react';
-import Header from './components/Header';
 import Nav from './components/Nav'
 import './App.css';
 
 function App() {
  
-
   return (
    <main>
-    <Header/>
     <Nav/>
+    <Articles/>
    </main>
   )
 }
