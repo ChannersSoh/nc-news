@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getArticleById } from "./utils/utils";
+import Comments from "./Comments";
 
 function SingleArticle() {
   const { article_id } = useParams();
@@ -28,7 +29,7 @@ function SingleArticle() {
   if (error) {
     return <p>{error}</p>;
   }
-
+console.log(singleArticle)
   return (
     <div className="single-article">
       <h1>{singleArticle.title}</h1>
@@ -38,7 +39,7 @@ function SingleArticle() {
       <p>{singleArticle.body}</p>
       <p>Date Written: {new Date(singleArticle.created_at).toLocaleDateString()}</p>
       <p>Votes: {singleArticle.votes}</p>
-      <p>Comments: {singleArticle.comment_count}</p>
+      <Comments article_id={article_id} singleArticle={singleArticle}/>
     </div>
   );
 }
