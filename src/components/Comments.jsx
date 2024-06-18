@@ -22,8 +22,6 @@ function Comments({ article_id, singleArticle }) {
     return <p>Loading comments...</p>;
   }
 
-console.log(singleArticle)
-
   return (
     <div className="comments">
       <h2>Comments</h2>
@@ -32,9 +30,9 @@ console.log(singleArticle)
         <ul>
           {comments.map((comment) => (
             <li key={comment.comment_id} className="comment-card">
-              <p>Author: {comment.author}</p>
               <p>{comment.body}</p>
-              <p>Date: {new Date(comment.created_at).toLocaleDateString()}</p>
+              <p>Posted by {comment.author}</p>
+              <p>created on: {new Date(comment.created_at).toLocaleString()}</p>
               <p>Votes: {comment.votes}</p>
             </li>
           ))}
