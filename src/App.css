@@ -84,6 +84,52 @@ main {
   list-style-type: none;
 }
 
+.comment-form {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.comment-form h2 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #0e0e0e;
+}
+
+.comment-form textarea,
+.comment-form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.comment-form textarea {
+  height: 100px;
+  resize: none; 
+}
+
+.comment-form button[type="submit"] {
+  background-color: #00c3ff;
+  color: #080707;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.comment-form button[type="submit"]:hover {
+  background-color: #33acd1;
+}
+
+
 .nav{
   background-color: aqua;
   color: black;

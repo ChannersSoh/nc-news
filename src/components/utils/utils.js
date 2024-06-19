@@ -40,3 +40,16 @@ export const voteOnArticle = (id, voteChange) => {
         
 };
 
+export const postComment = (article_id, commentData) => {
+    const { username, body } = commentData;
+    console.log("Posting comment:", commentData);
+    return ncNewsApi.post(`/articles/${article_id}/comments`, { username, body })
+      .then((response) => {
+        console.log("Response:", response.data);
+        return response.data.comment;
+      }) 
+      .catch((error) => {
+        console.error("Error posting comment:", error);
+        throw error; 
+      });
+  };
