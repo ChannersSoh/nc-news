@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getArticleById } from "./utils/utils";
-import Comments from "./Comments";
+import { getArticleById, getCommentsByArticleId } from "./utils/utils";
 import { voteOnArticle } from "./utils/utils";
+import Comments from "./Comments";
+import AddComment from "./AddComment";
 
 function SingleArticle() {
   const { article_id } = useParams();
   const [singleArticle, setSingleArticle] = useState({});
+  const [comments, setComments] = useState([]);
+  const [commentSuccessMessage, setCommentSuccessMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [voteChange, setVoteChange] = useState(0);
@@ -16,8 +19,12 @@ function SingleArticle() {
     getArticleById(article_id)
       .then((data) => {
         setSingleArticle(data.articles);
-        setIsLoading(false);
+        return getCommentsByArticleId(article_id);
       }) 
+      .then((data) => {
+        setComments(data.comments);
+        setIsLoading(false);
+      })
       .catch(() => {
         setError("Unable to fetch article details");
         setIsLoading(false);
@@ -30,6 +37,14 @@ function SingleArticle() {
       setVoteChange((vote) => vote - increment);
       setError("Something went wrong, please try again.");
     });
+  };
+
+  const handleCommentAdded = (newComment) => {
+    setComments((prevComments) => [newComment, ...prevComments]);
+    setCommentSuccessMessage("Your comment has been posted!");
+    setTimeout(() => {
+      setCommentSuccessMessage("");
+    }, 3000); 
   };
 
   if (isLoading) {
@@ -51,7 +66,9 @@ function SingleArticle() {
       <p>Votes: {singleArticle.votes + voteChange}</p>
       <button onClick={() => handleVote(1)}>Upvote</button>
       <button onClick={() => handleVote(-1)}>Downvote</button>
-      <Comments article_id={article_id} singleArticle={singleArticle}/>
+      {commentSuccessMessage && <p className="success-message">{commentSuccessMessage}</p>}
+      <AddComment article_id={article_id} onCommentAdded={handleCommentAdded} />
+      <Comments comments={comments} singleArticle={singleArticle}/>
     </div>
   );
 }
