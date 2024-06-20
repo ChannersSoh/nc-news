@@ -1,17 +1,62 @@
-function Comments({ comments, singleArticle }) {
+import { deleteCommentById, getCommentsByArticleId } from "./utils/utils"; 
+import { useState, useEffect } from "react";
+
+function Comments({ comments, setComments, singleArticle, user }) {
+  const [deletingComment, setDeletingComment] = useState(null);
+
+  useEffect(() => {
+    getComments();
+  }, []); 
+
+  const getComments = () => {
+    getCommentsByArticleId(singleArticle.article_id)
+      .then((data) => {
+        if (data && data.comments) {
+          setComments(data.comments);
+        } 
+      })
+      .catch((error) => {
+        console.error("Error getting comments:", error);
+      });
+  };
+
+  const handleDelete = (comment_id) => {
+    setComments((prevComments) =>
+      prevComments.filter((comment) => comment.comment_id !== comment_id)
+    );
+
+    setDeletingComment(comment_id);
+
+    deleteCommentById(comment_id)
+      .then(() => {
+        setDeletingComment(null);
+        getComments();
+      })
+      .catch((error) => {
+        console.error("Error deleting comment:", error);
+        setDeletingComment(null); 
+      });
+  };
 
   return (
     <div className="comments">
       <h2>Comments</h2>
-      <p>Comments: {singleArticle.comment_count}</p>
       {comments.length > 0 ? (
         <ul>
           {comments.map((comment) => (
             <li key={comment.comment_id} className="comment-card">
               <p>{comment.body}</p>
               <p>Posted by {comment.author}</p>
-              <p>created on: {new Date(comment.created_at).toLocaleString()}</p>
+              <p>Created on: {new Date(comment.created_at).toLocaleString()}</p>
               <p>Votes: {comment.votes}</p>
+              {user && user.username === comment.author && (
+                <button
+                  onClick={() => handleDelete(comment.comment_id)}
+                  disabled={deletingComment === comment.comment_id}
+                >
+                  {deletingComment === comment.comment_id ? "Deleting..." : "Delete"}
+                </button>
+              )}
             </li>
           ))}
         </ul>
