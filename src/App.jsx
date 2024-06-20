@@ -4,6 +4,7 @@ import Home from './components/Home';
 import React from 'react';
 import Nav from './components/Nav';
 import Login from './components/Login';
+import Topics from './components/Topics';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import SingleArticle from './components/SingleArticle';
@@ -27,6 +28,8 @@ function App() {
       <Route path='/login' element={<Login setUser={setUser}/>}/>
       <Route path='/articles' element={<Articles/>}/>
       <Route path="/articles/:article_id" element={<SingleArticle user={user}/>} />
+      <Route path="/topics" element={<Topics />} />
+      <Route path="/topics/:topic_slug" element={<Articles />} />
     </Routes>
     
    </main>

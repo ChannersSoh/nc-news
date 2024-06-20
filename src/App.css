@@ -69,6 +69,13 @@ main {
   text-align: center;
 }
 
+
+.topics-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
 .comments {
   margin-top: 2rem; 
 }
