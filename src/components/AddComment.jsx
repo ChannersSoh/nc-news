@@ -1,32 +1,32 @@
 import { useState } from "react";
 import { postComment } from "./utils/utils";
 
-function AddComment({ article_id, onCommentAdded }) {
+function AddComment({ article_id, user, handleCommentAdded }) {
   const [commentText, setCommentText] = useState("");
-  const [username, setUsername] = useState(""); 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!commentText || !username) {
-      setError("Please fill out all fields.");
+    if (!commentText) {
+      setError("Please enter your comment.");
       return;
     }
 
     setIsSubmitting(true);
     setError(null);
 
+    const username = user.username;
+
     postComment(article_id, { body: commentText, username })
       .then((newComment) => {
         setCommentText("");
-        setUsername("");
         setIsSubmitting(false);
-        onCommentAdded(newComment);
+        handleCommentAdded(newComment);
       })
-      .catch(() => {
+      .catch((error) => {
         console.error("Post comment error:", error);
-        setError("Unable to post comment. Please try again."); 
+        setError("Unable to post comment. Please try again.");
         setIsSubmitting(false);
       });
   };
@@ -39,18 +39,9 @@ function AddComment({ article_id, onCommentAdded }) {
     <form onSubmit={handleSubmit} className="comment-form">
       <h2>Add a Comment</h2>
       <div>
-        <input
-          type="text"
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
-          placeholder="Your Username here..."
-          required
-        />
-      </div>
-      <div>
         <textarea
           value={commentText}
-          onChange={(event) => {setCommentText(event.target.value)}}
+          onChange={(event) => setCommentText(event.target.value)}
           placeholder="Write your comment here..."
           required
         />
@@ -62,4 +53,4 @@ function AddComment({ article_id, onCommentAdded }) {
   );
 }
 
-export default AddComment
+export default AddComment;
