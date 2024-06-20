@@ -38,7 +38,6 @@ function SingleArticle({ user }) {
   }, [article_id]);
 
   useEffect(() => {
-    console.log("Hello")
     if (voteChange !== 0) {
       setHasVoted(true);
       sessionStorage.setItem(`voted_${article_id}`, true);

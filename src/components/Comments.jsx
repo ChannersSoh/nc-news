@@ -3,12 +3,9 @@ import { useState, useEffect } from "react";
 
 function Comments({ comments, setComments, singleArticle, user }) {
   const [deletingComment, setDeletingComment] = useState(null);
+  const [deleteSuccessMessage, setDeleteSuccessMessage] = useState("");
 
   useEffect(() => {
-    getComments();
-  }, []); 
-
-  const getComments = () => {
     getCommentsByArticleId(singleArticle.article_id)
       .then((data) => {
         if (data && data.comments) {
@@ -18,7 +15,8 @@ function Comments({ comments, setComments, singleArticle, user }) {
       .catch((error) => {
         console.error("Error getting comments:", error);
       });
-  };
+  }, []);
+  
 
   const handleDelete = (comment_id) => {
     setComments((prevComments) =>
@@ -30,7 +28,10 @@ function Comments({ comments, setComments, singleArticle, user }) {
     deleteCommentById(comment_id)
       .then(() => {
         setDeletingComment(null);
-        getComments();
+        setDeleteSuccessMessage("Your comment has been deleted!");
+        setTimeout(() => {
+          setDeleteSuccessMessage("");
+        }, 3000);
       })
       .catch((error) => {
         console.error("Error deleting comment:", error);
@@ -41,6 +42,7 @@ function Comments({ comments, setComments, singleArticle, user }) {
   return (
     <div className="comments">
       <h2>Comments</h2>
+      {deleteSuccessMessage && <p className="success-message">{deleteSuccessMessage}</p>}
       {comments.length > 0 ? (
         <ul>
           {comments.map((comment) => (
@@ -49,6 +51,7 @@ function Comments({ comments, setComments, singleArticle, user }) {
               <p>Posted by {comment.author}</p>
               <p>Created on: {new Date(comment.created_at).toLocaleString()}</p>
               <p>Votes: {comment.votes}</p>
+              {deleteSuccessMessage && <p className="success-message">{deleteSuccessMessage}</p>}
               {user && user.username === comment.author && (
                 <button
                   onClick={() => handleDelete(comment.comment_id)}

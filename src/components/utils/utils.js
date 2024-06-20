@@ -41,11 +41,9 @@ export const voteOnArticle = (id, voteChange) => {
 };
 
 export const postComment = (article_id, commentData) => {
-    const { username, body } = commentData;
-    console.log("Posting comment:", commentData);
+    const { username, body } = commentData
     return ncNewsApi.post(`/articles/${article_id}/comments`, { username, body })
       .then((response) => {
-        console.log("Response:", response.data);
         return response.data.comment;
       }) 
       .catch((error) => {
@@ -76,6 +74,27 @@ export const postComment = (article_id, commentData) => {
       })
       .catch((error) => {
         console.error("Error fetching user:", error);
+        throw error;
+      });
+  };
+
+  export const getTopics = () => {
+    return ncNewsApi.get("/topics").then((response) => {
+      return response.data;
+    }) .catch((error) => {
+        console.error("Error fetching topics:", error);
+        throw error;
+      });
+  };
+
+  
+  export const getArticlesByTopic = (topic_slug) => {
+    return ncNewsApi.get(`/articles`, { params: { topic: topic_slug } })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        console.error("Error fetching articles for this topic:", error);
         throw error;
       });
   };
