@@ -4,13 +4,15 @@ const ncNewsApi = axios.create({
     baseURL: "https://nc-news-6t8x.onrender.com/api"
 });
 
-export const getArticles = () => {
-    return ncNewsApi.get("/articles").then((response) => {
-        return response.data
-    }).catch((error) => {
-            console.log(error);
-        })
-        
+export const getArticles = (topic_slug, sort_by = 'created_at', order = 'desc') => {
+  return ncNewsApi.get(`/articles`, { params: { topic: topic_slug, sort_by, order } })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("Error fetching articles for this topic:", error);
+      throw error;
+    });
 };
 
 export const getArticleById = (id) => {
@@ -88,13 +90,5 @@ export const postComment = (article_id, commentData) => {
   };
 
   
-  export const getArticlesByTopic = (topic_slug) => {
-    return ncNewsApi.get(`/articles`, { params: { topic: topic_slug } })
-      .then((response) => {
-        return response.data;
-      })
-      .catch((error) => {
-        console.error("Error fetching articles for this topic:", error);
-        throw error;
-      });
-  };
+
+ 
