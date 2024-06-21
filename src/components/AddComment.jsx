@@ -11,6 +11,11 @@ function AddComment({ article_id, user, handleCommentAdded }) {
     if (!commentText) {
       setError("Please enter your comment.");
       return;
+    };
+
+    if (!user) {
+      setError("You must be logged in to post a comment.");
+      return;
     }
 
     setIsSubmitting(true);
@@ -47,6 +52,7 @@ function AddComment({ article_id, user, handleCommentAdded }) {
         />
       </div>
       <button type="submit" disabled={isSubmitting}>
+      {error && <p className="error-message">{error}</p>}
         {isSubmitting ? "Submitting..." : "Submit Comment"}
       </button>
     </form>

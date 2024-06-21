@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 function Comments({ comments, setComments, singleArticle, user }) {
   const [deletingComment, setDeletingComment] = useState(null);
   const [deleteSuccessMessage, setDeleteSuccessMessage] = useState("");
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     getCommentsByArticleId(singleArticle.article_id)
@@ -12,8 +13,8 @@ function Comments({ comments, setComments, singleArticle, user }) {
           setComments(data.comments);
         } 
       })
-      .catch((error) => {
-        console.error("Error getting comments:", error);
+      .catch(() => {
+        setError("Unable to retrieve comments");
       });
   }, []);
   
@@ -33,8 +34,8 @@ function Comments({ comments, setComments, singleArticle, user }) {
           setDeleteSuccessMessage("");
         }, 3000);
       })
-      .catch((error) => {
-        console.error("Error deleting comment:", error);
+      .catch(() => {
+        setError("Unable to delete comment");
         setDeletingComment(null); 
       });
   };
@@ -42,6 +43,7 @@ function Comments({ comments, setComments, singleArticle, user }) {
   return (
     <div className="comments">
       <h2>Comments</h2>
+      {error && <p className="error-message">{error}</p>}
       {deleteSuccessMessage && <p className="success-message">{deleteSuccessMessage}</p>}
       {comments.length > 0 ? (
         <ul>
