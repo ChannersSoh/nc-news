@@ -4,7 +4,7 @@ import { useParams, useSearchParams, Link } from "react-router-dom";
 import { useEffect } from "react";
 import ArticleCards from "./ArticleCards";
 
-function Articles() {
+function Articles({}) {
 const { topic_slug } = useParams();
 const [articles, setArticles] = useState([]);
 const [isLoading, setIsLoading] = useState(true);

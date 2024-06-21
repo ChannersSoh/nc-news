@@ -9,6 +9,14 @@ h1{
   text-align: center;
 }
 
+h2, h3 {
+  margin: 0 0 10px;
+}
+
+p {
+  margin: 0;
+}
+
 button {
   color: rgb(0, 0, 0);
   margin-left: 16px;
@@ -62,6 +70,36 @@ main {
 .article-image {
   max-width: 100%; 
   height: auto; 
+}
+
+.home-container {
+  padding: 20px;
+}
+
+.articles-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+.main-article {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.side-articles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.side-article {
+  background-color: #f1f1f1;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .single-article{
@@ -195,4 +233,10 @@ main {
 
 .nav li:hover {
   background-color: #5cdff3;
+}
+
+@media (max-width: 768px) {
+  .articles-layout {
+    grid-template-columns: 1fr;
+  }
 }
