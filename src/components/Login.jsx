@@ -10,7 +10,6 @@ function Login({ setUser }) {
     if (username) {
       getUserByUsername(username)
         .then((user) => {
-          console.log("User fetched:", user);
           setUser(user);
           sessionStorage.setItem('currentUser', JSON.stringify(user));
           setError(null);

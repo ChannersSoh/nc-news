@@ -9,7 +9,6 @@ const Topics = () => {
   useEffect(() => {
     getTopics()
       .then((data) => {
-        console.log(data.topics)
         setTopics(data.topics);
       })
       .catch(() => {
