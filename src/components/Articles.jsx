@@ -8,17 +8,22 @@ function Articles() {
 const { topic_slug } = useParams();
 const [articles, setArticles] = useState([]);
 const [isLoading, setIsLoading] = useState(true);
+const [error, setError] = useState(null);
 const [searchParams, setSearchParams] = useSearchParams();
-const sort_by = searchParams.get("sort_by") || "created_at";
-const order = searchParams.get("order") || "desc";
+const sort_by = searchParams.get("sort_by");
+const order = searchParams.get("order");
 
-
-useEffect(() => {
+ useEffect(() => {
     setIsLoading(true);
-    getArticles(topic_slug, sort_by, order).then((data) => {
-      setArticles(data.articles);
-      setIsLoading(false);
-    });
+    getArticles(topic_slug, sort_by, order)
+      .then((data) => {
+        setArticles(data.articles);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setError("No articles available");
+        setIsLoading(false);
+      });
   }, [topic_slug, sort_by, order]);
 
   const handleSort = (event) => {
@@ -28,6 +33,10 @@ useEffect(() => {
 
 if(isLoading) {
     return <p className="Loading">Loading...</p>
+}
+
+if (error) {
+  return <p>{error}</p>;
 }
 
 return(

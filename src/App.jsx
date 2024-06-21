@@ -5,6 +5,7 @@ import React from 'react';
 import Nav from './components/Nav';
 import Login from './components/Login';
 import Topics from './components/Topics';
+import NotFound from './components/NotFound';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import SingleArticle from './components/SingleArticle';
@@ -30,6 +31,7 @@ function App() {
       <Route path="/articles/:article_id" element={<SingleArticle user={user}/>} />
       <Route path="/topics" element={<Topics />} />
       <Route path="/topics/:topic_slug" element={<Articles />} />
+      <Route path='*' element={<NotFound />} />
     </Routes>
     
    </main>
