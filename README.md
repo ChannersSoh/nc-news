@@ -10,6 +10,7 @@ To run a local version of this project, first use git clone https://github.com/C
 
 This portfolio project was created as part of a Digital Skills Bootcamp in Software Engineering provided by [Northcoders](https://northcoders.com/)
 
-Website Examples: 
-<img src="https://github.com/user-attachments/assets/15052c6d-99d4-4315-bdee-309376e5b5c2" width="500" height="300">
+Website Examples:
+
+<img src="https://github.com/user-attachments/assets/15052c6d-99d4-4315-bdee-309376e5b5c2" width="550" height="300">
 
