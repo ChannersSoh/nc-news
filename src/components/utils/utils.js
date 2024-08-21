@@ -19,7 +19,6 @@ export const getArticles = (topic_slug, sort_by = 'created_at', order = 'desc') 
 export const getMainArticle = (topic_slug) => {
   return ncNewsApi.get(`/articles`, { params: { topic: topic_slug, sort_by: 'votes', order: 'desc', limit: 1 } })
     .then((response) => {
-      console.log(response)
       return response.data.articles[0];
     })
     .catch((error) => {
@@ -29,10 +28,10 @@ export const getMainArticle = (topic_slug) => {
 };
 
 export const getSideArticles = (topic_slug, excludeArticleId) => {
-  return ncNewsApi.get(`/articles`, { params: { topic: topic_slug, sort_by: 'votes', order: 'desc', limit: 4 } })
+  return ncNewsApi.get(`/articles`, { params: { topic: topic_slug, sort_by: 'votes', order: 'desc', limit: 6 } })
     .then((response) => {
       const articles = response.data.articles.filter(article => article.article_id !== excludeArticleId);
-      return articles.slice(0, 3);
+      return articles.slice(0, 5);
     })
     .catch((error) => {
       console.error("Error fetching side articles:", error);

@@ -1,6 +1,6 @@
 #root {
   max-width: 1560px;
-  margin: 0 auto; 
+  margin: 0 auto;
   padding: 0;
   width: 100%;
 }
@@ -41,7 +41,7 @@ main {
 
 .articles-container {
   width: 100%;
-  max-width: 1560px; 
+  max-width: 1560px;
   padding: 1rem;
   box-sizing: border-box;
 }
@@ -50,8 +50,8 @@ main {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  max-width: 100%; 
-  width: 100%; 
+  max-width: 100%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -100,17 +100,63 @@ main {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.side-articles {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.carousel {
+  position: relative;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden; /* Ensure only one slide is visible at a time */
 }
 
-.side-article {
-  background-color: #f1f1f1;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.carousel__viewport {
+  display: flex;
+  overflow-x: scroll; 
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  width: 100%;
+  
+}
+
+.carousel__slide {
+  min-width: 100%;
+  scroll-snap-align: start; /* Align to start for smooth snapping */
+  box-sizing: border-box;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.carousel__prev,
+.carousel__next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 20px;
+  z-index: 1;
+}
+
+.carousel__prev {
+  left: 10px;
+}
+
+.carousel__next {
+  right: 10px;
+}
+
+.carousel__navigation {
+  display: none; /* Hide navigation dots */
 }
 
 .single-article {
