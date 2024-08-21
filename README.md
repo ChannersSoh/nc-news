@@ -9,3 +9,6 @@ Minimum node version: v21.7.3
 To run a local version of this project, first use git clone https://github.com/ChannersSoh/nc-news.git in the terminal. Then cd into the nc-news directory and run npm install to get the correct npm packages. Once they have installed use npm run dev to start a local version of the app, which will be available on one of the ports.
 
 This portfolio project was created as part of a Digital Skills Bootcamp in Software Engineering provided by [Northcoders](https://northcoders.com/)
+
+Website Examples: 
+![Screenshot (149)](https://github.com/user-attachments/assets/15052c6d-99d4-4315-bdee-309376e5b5c2)
